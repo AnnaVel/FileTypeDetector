@@ -5,8 +5,13 @@
         private readonly IEnumerable<IFileTypeChecker> checkers;
 
         public FileTypeDetector()
+        : this(new FileTypeCheckersListBuilder())
         {
-            this.checkers = this.BuildCheckers();
+        }
+
+        public FileTypeDetector(IFileTypeCheckersListBuilder builder)
+        {
+            this.checkers = builder.BuildFileTypeCheckers();
         }
 
         public IEnumerable<FileType> GetFileTypesFromByteArray(byte[] bytes)
@@ -36,27 +41,6 @@
             }
 
             return FileType.Empty;
-        }
-
-        /// <summary>
-        /// Override this if you would like to extend the list of file types that can be checked for.
-        /// </summary>
-        /// <returns>A list of FileTypeCheckers that will be used to check files for their file type.</returns>
-        protected IEnumerable<IFileTypeChecker> BuildCheckers()
-        {
-            return new List<IFileTypeChecker>(){
-                new LeadingBytesFileTypeChecker(new FileType("", "pdf"), new byte?[]{0x25, 0x50, 0x44, 0x46, 0x2D}),
-                new LeadingBytesFileTypeChecker(new FileType("", "txt"), new byte?[]{0xEF, 0xBB, 0xBF}),
-                new LeadingBytesFileTypeChecker(new FileType("", "txt"), new byte?[]{0xFF, 0xFE}),
-                new LeadingBytesFileTypeChecker(new FileType("", "txt"), new byte?[]{0xFE, 0xFF}),
-                new LeadingBytesFileTypeChecker(new FileType("", "txt"), new byte?[]{0xFF, 0xFE, 0x00, 0x00}),
-                new LeadingBytesFileTypeChecker(new FileType("", "txt"), new byte?[]{0x00, 0x00, 0xFE, 0xFF}),
-                new LeadingBytesFileTypeChecker(new FileType("", "txt"), new byte?[]{0x0E, 0xFE, 0xFF}),
-                new ZipFileTypeChecker(new FileType("", "docx"), "word/document.xml"),
-                new ZipFileTypeChecker(new FileType("", "xlsx"), "xl/workbook.xml"),
-                new ZipFileTypeChecker(new FileType("", "pptx"), "ppt/presentation.xml"),
-                new LeadingBytesFileTypeChecker(new FileType("", "zip"), new byte?[]{0x50, 0x4B}),
-            };
         }
     }
 }

@@ -25,9 +25,15 @@ internal class LeadingBytesFileTypeChecker : IFileTypeChecker
 
     public virtual bool IsByteArrayOfMyType(byte[] bytes)
     {
+        if(this.Offset + this.leadingBytes.Length > bytes.Length)
+        {
+            return false;
+        }
+
         for (int i = 0; i < leadingBytes.Length; i++)
         {
-            if(this.leadingBytes[i] != null && (bytes[i + this.Offset] != this.leadingBytes[i]))
+            if(this.leadingBytes[i] != null &&
+            (bytes[i + this.Offset] != this.leadingBytes[i]))
             {
                 return false;
             }
