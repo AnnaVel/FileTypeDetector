@@ -49,7 +49,6 @@ public class FileTypeCheckersListBuilder : IFileTypeCheckersListBuilder
             new LeadingBytesFileTypeChecker(new FileType("Windows Program Information File", "PIF"), new byte?[]{0x00}),
             new LeadingBytesFileTypeChecker(new FileType("Mac Stuffit Self-Extracting Archive", "SEA"), new byte?[]{0x00}),
             new LeadingBytesFileTypeChecker(new FileType("IRIS OCR data file", "YTR"), new byte?[]{0x00}),
-            new LeadingBytesFileTypeChecker(new FileType("PalmPilot Database/Document File", "PDB"), 11, new byte?[]{0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}),
             new LeadingBytesFileTypeChecker(new FileType("Palm Desktop Calendar Archive", "DBA"), new byte?[]{0xBE, 0xBA, 0xFE, 0xCA}),
             new LeadingBytesFileTypeChecker(new FileType("Palm Desktop To Do Archive", "DBA"), new byte?[]{0x00, 0x01, 0x42, 0x44}),
             new LeadingBytesFileTypeChecker(new FileType("Palm Desktop Calendar Archive", "TDA"), new byte?[]{0x00, 0x01, 0x44, 0x54}),
@@ -384,7 +383,7 @@ public class FileTypeCheckersListBuilder : IFileTypeCheckersListBuilder
             })),
 
              //https://opendmgfile.com/file_format.html
-            new LeadingBytesFileTypeChecker(new FileType("Apple Disk Image file", "dmg"), new byte?[]{0x6B, 0x6F, 0x6C, 0x79}),
+            new TrailingBytesFileTypeChecker(new FileType("Apple Disk Image file", "dmg"), 512, new byte?[]{0x6B, 0x6F, 0x6C, 0x79}),
         };
 
     }

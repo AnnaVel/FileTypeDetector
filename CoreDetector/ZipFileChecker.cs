@@ -5,9 +5,10 @@ namespace FileTypeDetect;
 internal class ZipFileTypeChecker : LeadingBytesFileTypeChecker
 {
     string entryToLookFor;
+    private static readonly byte?[] ZipMagicBytes = new byte?[] {0x50, 0x4B};
 
     public ZipFileTypeChecker(FileType fileType, string entryToLookFor)
-        :base(fileType, new byte?[] {0x50, 0x4B})
+        :base(fileType, ZipMagicBytes)
     {
         this.entryToLookFor = entryToLookFor;
         Utils.ThrowExceptionIfNulll(fileType, nameof(fileType));

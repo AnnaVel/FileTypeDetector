@@ -27,6 +27,8 @@
     <EmbeddedResource Include="TestDocuments/Test.txt" />
     <EmbeddedResource Include="TestDocuments/Test.pdf" />
     <EmbeddedResource Include="TestDocuments/Test.zip" />
+    <EmbeddedResource Include="TestDocuments/Test.tar" />
+    <EmbeddedResource Include="TestDocuments/Test.dmg" />
   </ItemGroup>
 
 </Project>

@@ -43,9 +43,19 @@ public class FileTypeDetectorTests
         this.AssertFileIsOfType("Test.zip", "zip");
     }
 
+    [TestMethod]
+    public void TestTarFileIsRecognized()
+    {
+        this.AssertFileIsOfType("Test.tar", "tar");
+    }
+
+    [TestMethod]
+    public void TestDmgFileIsRecognized()
+    {
+        this.AssertFileIsOfType("Test.dmg", "dmg");
+    }
+
         // TODO: Test file types
-        // tar
-        // dmg
         // iso
         // xml
         //mxf
